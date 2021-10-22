@@ -1,0 +1,33 @@
+{% extends "layout-admin.njk" %}
+
+{% block head %}
+    <title>Foodfy - Admin</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="cards edit-header">
+        <h1>Gerenciar receitas</h1>
+        <a href="/admin/recipes/create" class="edit">Nova receita</a>
+    </div>
+
+<div class="cards cards-admin">   
+
+    {% for recipe in recipes %}
+    <div class="card-admin" id="">
+        <div class="card-img-admin">
+            <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
+        </div>
+        <div class="card-text">
+            <h1>{{recipe.title}}</h1>
+            <p>por {{recipe.chef_name}}</p>
+            <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+        </div>
+    </div> 
+    {% endfor %}   
+
+</div>
+
+    
+    
+{% endblock %}

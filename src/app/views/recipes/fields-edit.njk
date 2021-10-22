@@ -1,0 +1,34 @@
+<h3>Imagem da receita</h3>
+<input type="url" name="image" value="{{recipe.image}}" placeholder="https://">
+<h3>Título</h3>
+<input type="text" name="title" value="{{recipe.title}}" placeholder="Título">
+<div>Autor</div>
+    <div>
+        <select name="chef">
+        {% for chef in chefsOptions %}
+            <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %}selected{%endif%}>
+                {{chef.name}}
+            </option>            
+        {%endfor%}            
+        </select>
+    </div>
+<div id="ingredients">
+  <h3>Ingredientes</h3>
+  {% for ingredient in recipe.ingredients %}
+    <div class="ingredient">
+      <input type="text" name="ingredients[]" value="{{ingredient}}" placeholder="Ingrediente" />
+    </div>
+  {% endfor %}
+</div>
+<button type="button" class="add-ingredient add-button">Adicionar ingrediente</button>
+<div id="steps">
+  <h3>Preparação</h3>
+  {% for step in recipe.preparation %}
+    <div class="step">    
+      <input type="text" name="preparation[]" value="{{step}}" placeholder="Passo" />
+    </div>   
+  {% endfor %}
+</div>
+<button type="button" class="add-step add-button">Adicionar novo passo</button>
+<h3>Informações adicionais</h3>
+<input type="text" name="information" value="{{recipe.information}}" placeholder="Informação" class="additional-info">
