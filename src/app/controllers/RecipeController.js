@@ -1,11 +1,11 @@
-const Chef = require('../models/Chef');
-const Recipe = require('../models/Recipe');
-const File = require('../models/File');
+const Chef = require('../models/ChefModel');
+const Recipe = require('../models/RecipeModel');
+const File = require('../models/FileModel');
 
 module.exports = {
   home(req, res) {
     Recipe.all(function (recipes) {
-      return res.render('portal/index', { recipes });
+      return res.render('site/pages/index', { recipes });
     });
   },
   list(req, res) {
@@ -28,20 +28,22 @@ module.exports = {
           total,
           page,
         };
-        return res.render('portal/recipes', { recipes, pagination });
+        return res.render('site/pages/recipes', { recipes, pagination });
       },
     };
     Recipe.paginate(params);
   },
-  detail(req, res) {
-    Recipe.find(req.params.id, function (recipe) {
-      if (!recipe) return res.render('not-found');
-      return res.render('portal/recipe', { recipe });
-    });
+  async detail(req, res) {
+    let results = await Recipe.find(req.params.id);
+    const recipe = results.rows[0];
+
+    if (!recipe) return res.send('Receita não encontrada!');
+
+    return res.render('site/pages/recipe', { recipe });
   },
   index(req, res) {
     Recipe.all(function (recipes) {
-      return res.render('admin/index', { recipes });
+      return res.render('admin/recipes/index', { recipes });
     });
   },
   search(req, res) {
@@ -56,7 +58,7 @@ module.exports = {
       .then(function (results) {
         const chefs = results.rows;
 
-        return res.render('recipes/create.njk', { chefs });
+        return res.render('admin/recipes/create', { chefs });
       })
       .catch(function (err) {
         throw new Error(err);
@@ -77,7 +79,7 @@ module.exports = {
       )}`,
     }));
 
-    return res.render('recipes/show', { recipe, files });
+    return res.render('admin/recipes/show', { recipe, files });
     // Recipe.find(req.params.id, function (recipe) {
     //   if (!recipe) return res.send('Recipe not found!');
     //   return res.render('recipes/show', { recipe });
@@ -105,14 +107,24 @@ module.exports = {
 
     return res.redirect(`recipes/${recipeId}`);
   },
-  edit(req, res) {
-    Recipe.find(req.params.id, function (recipe) {
-      if (!recipe) return res.send('Recipe not found!');
+  async edit(req, res) {
+    let results = await Recipe.find(req.params.id);
+    const recipe = results.rows[0];
 
-      Recipe.chefsSelectOptions(function (options) {
-        return res.render('recipes/edit', { recipe, chefsOptions: options });
-      });
-    });
+    if (!recipe) return res.send('Receita não encontrada!');
+
+    results = await Chef.all();
+    const chefs = results.rows;
+
+    //   Recipe.chefsSelectOptions(function (options) {
+    //     return res.render('admin/recipes/edit', {
+    //       recipe,
+    //       chefsOptions: options,
+    //     });
+    //   });
+    // });
+
+    return res.render('admin/recipes/edit', { recipe, chefs });
   },
   put(req, res) {
     const keys = Object.keys(req.body);

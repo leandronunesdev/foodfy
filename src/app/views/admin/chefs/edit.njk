@@ -17,7 +17,7 @@
         </div>
     </div>
     
-        {% include 'chefs/fields.njk' %}
+        {% include 'admin/chefs/fields.njk' %}
         
     </form>
     <form action="/admin/chefs?_method=DELETE" method="POST">
@@ -25,7 +25,5 @@
             <button type="submit" class="delete">Deletar</button>
     </form>
 </div>
-
-<script src="/scripts.js"></script>
     
 {% endblock %}

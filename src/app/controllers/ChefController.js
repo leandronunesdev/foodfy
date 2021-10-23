@@ -1,17 +1,23 @@
-const Chef = require('../models/Chef');
+const Chef = require('../models/ChefModel');
 
 module.exports = {
   list(req, res) {
-    Chef.all(function (chefs) {
-      return res.render('portal/chefs', { chefs });
-    });
+    Chef.all()
+      .then(function (results) {
+        const chefs = results.rows;
+
+        return res.render('site/pages/chefs', { chefs });
+      })
+      .catch(function (err) {
+        throw new Error(err);
+      });
   },
   index(req, res) {
     Chef.all()
       .then(function (results) {
         const chefs = results.rows;
 
-        return res.render('chefs/admin.njk', { chefs });
+        return res.render('admin/chefs/index', { chefs });
       })
       .catch(function (err) {
         throw new Error(err);
@@ -22,7 +28,7 @@ module.exports = {
       if (!chef) return res.send('Chef não encontrado!');
 
       Chef.findChefRecipes(req.params.id, function (recipes) {
-        return res.render('chefs/show', { chef, recipes });
+        return res.render('admin/chefs/show', { chef, recipes });
       });
     });
   },
@@ -35,13 +41,13 @@ module.exports = {
       }
     }
     Chef.create(req.body, function (chef) {
-      return res.redirect(`chefs/${chef.id}`);
+      return res.redirect(`admin/chefs/${chef.id}`);
     });
   },
   edit(req, res) {
     Chef.find(req.params.id, function (chef) {
       if (!chef) return res.send('Chef not found!');
-      return res.render('chefs/edit', { chef });
+      return res.render('admin/chefs/edit', { chef });
     });
   },
   put(req, res) {

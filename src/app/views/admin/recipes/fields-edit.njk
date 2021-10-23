@@ -5,7 +5,7 @@
 <div>Autor</div>
     <div>
         <select name="chef">
-        {% for chef in chefsOptions %}
+        {% for chef in chefs %}
             <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %}selected{%endif%}>
                 {{chef.name}}
             </option>            
