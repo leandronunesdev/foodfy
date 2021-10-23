@@ -6,84 +6,11 @@
 
 {% block content %}
 
-    <div class="cards edit-header">
-        <h1>Receita: {{recipe.title}}</h1>
-        <a href="/admin/recipes/{{recipe.id}}/edit" class="edit">Editar receita</a>
-    </div>
-    
-<div class="cards recipe">
-    <div class="recipe-img" id="">
-        
-        <div class="gallery">
-        <div class="highlight">
-            {% if not files[0] %}
-                <img src="http://placehold.it/500x500?text=PRODUTO SEM FOTO" />    
-            {% else %}
-                <img 
-                    src="{{files[0].src}}" 
-                    alt="{{files[0].name}}"
-                    onclick="Lightbox.open()"
-                >
-            {% endif %}     
-            <div class="lightbox-target">
-                <img src="{{files[0].src}}" alt="{{files[0].name}}">
-                <a 
-                    href="#" 
-                    class="lightbox-close"
-                    onclick="Lightbox.close()"
-                >
-                    <i class="material-icons">close</i>
-                </a>
-            </div>   
-        </div>    
-        <div class="gallery-preview">
-            {% for image in files %} 
-                <img 
-                    src="{{image.src}}" 
-                    alt="{{image.name}}"
-                    {% if loop.index0 == 0 %}
-                    class="active"
-                    {% endif %}
-                    onclick="ImageGallery.setImage(event)"
-                >
-            {% endfor %}
-        </div>
-    </div>
+<div class="container edit-header">
+    <h1>Receita: {{recipe.title}}</h1>
+    <a href="/admin/recipes/{{recipe.id}}/edit" class="edit">Editar receita</a>
+</div>  
 
-
-
-        <div class="">
-            <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
-        </div>
-        <div class="card-text">
-            <h1>{{recipe.title}}</h1>
-            <h2>por {{recipe.chef_name}}</h2>
-        </div>
-        <div class="recipe-text">
-            <div class="title-button">
-                 <h3>Ingredientes</h3>                      
-            </div>
-            <ul class="ingredients">
-            {% for ingredient in recipe.ingredients %}
-                <li>{{ingredient}}</li>
-            {% endfor %}
-            </ul>  
-            <div class="title-button">
-                <h3>Modo de preparo</h3>            
-            </div>          
-            <ul class="steps">
-            {% for step in recipe.preparation %}
-                <li>{{step}}</li>
-            {% endfor %}
-            </ul>
-            <div class="title-button">
-                <h3>Informações adicionais</h3>
-            </div>   
-            <p class="recipe-info">{{recipe.information}}</p>     
-                  
-        </div>
-    </div>
-    
-</div>
+{% include 'parts/recipe-description.njk' %}
 
 {% endblock %}}

@@ -6,17 +6,16 @@
 
 {% block content %}
 
-<div class="cards cards-admin">   
+<div class="container chefs-list">   
 
     {% for chef in chefs %}
-    <div class="card-admin" id="">
-        <div class="card-img-admin">
+    <div class="chef-card">
+        <div class="chef-card-img">
             <img src="{{chef.avatar_url}}" alt="Imagem de {{chef.name}}">
         </div>
-        <div class="card-text">
+        <div class="chef-card-text">
             <h1>{{chef.name}}</h1>  
-            <p>{{chef.total_recipes}} receitas</p>          
-            
+            <p>{{chef.total_recipes}} receitas</p>
         </div>
     </div> 
     {% endfor %}   

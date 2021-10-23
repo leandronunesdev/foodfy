@@ -50,7 +50,7 @@ module.exports = {
     let { filter } = req.query;
 
     Recipe.findBy(filter, function (recipes) {
-      return res.render('portal/search', { recipes, filter });
+      return res.render('site/pages/search', { recipes, filter });
     });
   },
   create(req, res) {
@@ -115,14 +115,6 @@ module.exports = {
 
     results = await Chef.all();
     const chefs = results.rows;
-
-    //   Recipe.chefsSelectOptions(function (options) {
-    //     return res.render('admin/recipes/edit', {
-    //       recipe,
-    //       chefsOptions: options,
-    //     });
-    //   });
-    // });
 
     return res.render('admin/recipes/edit', { recipe, chefs });
   },

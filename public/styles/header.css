@@ -1,0 +1,61 @@
+/* HEADER SITE */
+
+.current-link {
+  font-weight: bold;
+}
+
+header {
+  width: 940px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin: 36px 122px 30px 0px;
+}
+
+.menu {
+  font-size: 16px;
+  line-height: 19px;
+}
+
+.menu a {
+  margin: 0 30px 0 0;
+}
+
+/* HEADER SEARCH */
+
+.search input {
+  width: 246px;
+  height: 37px;
+  padding-left: 15px;
+  border-radius: 4px;
+  border: 1px solid #dddddd;
+  font-size: 14px;
+}
+
+.search input::placeholder {
+  color: #999999;
+}
+
+.search button {
+  color: white;
+  background-color: #6558c3;
+  border-radius: 4px;
+  padding: 9px 20px;
+  font-size: 16px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+/* HEADER ADMIN */
+
+.header-admin {
+  background-color: black;
+  margin-bottom: 50px;
+}
+
+.header-admin a {
+  color: #fff;
+}

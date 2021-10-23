@@ -41,7 +41,7 @@ module.exports = {
       }
     }
     Chef.create(req.body, function (chef) {
-      return res.redirect(`admin/chefs/${chef.id}`);
+      return res.redirect(`chefs/${chef.id}`);
     });
   },
   edit(req, res) {

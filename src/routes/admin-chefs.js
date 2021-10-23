@@ -5,7 +5,7 @@ const ChefController = require('../app/controllers/ChefController');
 
 routes.get('/', ChefController.index);
 routes.get('/create', function (req, res) {
-  return res.render('/create');
+  return res.render('admin/chefs/create');
 });
 routes.post('/', ChefController.post);
 routes.get('/:id', ChefController.show);
