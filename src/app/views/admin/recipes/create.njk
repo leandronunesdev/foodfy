@@ -6,14 +6,16 @@
 
 {% block content %}
 
-<div class="form recipe-form">
+<div class="container form recipe-form">
   <form method="POST" action="/admin/recipes" enctype="multipart/form-data">
+    <div class="edit-header">
+        <h1>Criando receita</h1>
+        <div>            
+            <button type="submit" class="button">Salvar receita</button>
+        </div>
+    </div>
 
-    {% include 'admin/recipes/fields-create.njk' %}
-
-    <div>
-      <button type="submit" class="edit">Salvar receita</button>
-    </div>  
+    {% include 'admin/recipes/fields-create.njk' %}     
 
   </form>
 </div>

@@ -105,53 +105,26 @@ p {
   cursor: pointer;
 }
 
-/* RECIPE EDIT AND CREATE */
-
-.edit-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.edit-header h1 {
-  font-size: 24px;
-}
-
-.edit-header a,
-button {
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.edit {
-  background-color: #6558c3;
-  padding: 10px 25px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.delete {
-  background-color: #dc4747;
-  padding: 10px 25px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin-top: 24px;
-}
-
 .recipe-info {
   margin-bottom: 40px;
 }
 
+/* RECIPE EDIT AND CREATE */
+
 .recipe-form input {
-  font-size: 18px;
-  line-height: 28px;
+  font-size: 16px;
+  line-height: 19px;
   width: 100%;
   height: fit-content;
   border: #dddddd 1px solid;
   margin: 8px 0;
-  padding: 15px 20px;
+  padding: 15px 0 15px 20px;
   border-radius: 4px;
+}
+
+.ingredients,
+.steps {
+  margin-bottom: 30px;
 }
 
 .additional-info {
@@ -166,6 +139,17 @@ button {
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.recipe-create-info textarea {
+  border: 1px solid #dddddd;
+  border-radius: 4px;
+  width: 100%;
+  min-height: 257px;
+  font-size: 16px;
+  padding: 15px 0 15px 20px;
+  margin-bottom: 30px;
 }
 
 /* RECIPES ADMIN LIST */

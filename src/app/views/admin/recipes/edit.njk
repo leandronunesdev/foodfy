@@ -6,14 +6,14 @@
 
 {% block content %}
 
-<div class="form recipe-form">
+<div class="container form recipe-form">
     
     <form method="POST" action="/admin/recipes?_method=PUT">
     <div class="cards edit-header">
         <h1>Editando receita</h1>
         <div>
             <input type="hidden" name="id" value={{recipe.id}}>
-            <button type="submit" class="edit">Salvar receita</button>
+            <button type="submit" class="button">Salvar receita</button>
         </div>
     </div>
     
@@ -22,7 +22,7 @@
     </form>
     <form action="/admin/recipes?_method=DELETE" method="POST">
             <input type="hidden" name="id" value={{recipe.id}}>
-            <button type="submit" class="delete">Deletar</button>
+            <button type="submit" class="button delete-button">Deletar</button>
     </form>
     
 

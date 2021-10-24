@@ -13,6 +13,7 @@
     
 
 <div class="container">
+
     <div class="chef-hero">
         <div class="chef_avatar">
             <div class="">
@@ -26,8 +27,14 @@
             <p>{{chef.total_recipes}} Receitas</p>            
         </div>        
     </div>
+
+    <div class="container title">
+        <h1>Receitas</h1>
+    </div>
+{% include 'parts/admin-recipes-list.njk'%}
+
     
-    {% for recipe in recipes %}
+    {# {% for recipe in recipes %}
     <div class="card-admin">
         <div class="card-img-admin">
             <img src="{{recipe.image}}" alt="Imagem de {{recipe.title}}">
@@ -37,7 +44,7 @@
             <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
         </div>
     </div> 
-    {% endfor %} 
+    {% endfor %}  #}
 </div>
 
 {% endblock %}}
