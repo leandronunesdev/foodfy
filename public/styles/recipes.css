@@ -34,7 +34,7 @@
 
 /* RECIPE SHOW */
 
-.recipe-img img {
+.recipe img {
   border-radius: 15px;
   margin: 0 auto 50px;
   width: 100%;
@@ -107,6 +107,24 @@ p {
 
 .recipe-info {
   margin-bottom: 40px;
+}
+
+.highlight .gallery-preview {
+  display: flex;
+  /* margin-left: 70vmax; */
+}
+
+.highlight .gallery-preview img {
+  width: 5vw;
+  height: 10vh;
+  border-radius: 10px;
+  display: flex;
+  opacity: 60%;
+
+  object-position: 50% 50%;
+  object-fit: none;
+  cursor: pointer;
+  margin: 0 3px;
 }
 
 /* RECIPE EDIT AND CREATE */

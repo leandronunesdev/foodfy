@@ -16,13 +16,13 @@ module.exports = {
   },
   create(data) {
     const query = `
-      INSERT INTO recipes (       
+      INSERT INTO recipes (
         title,
         ingredients,
         preparation,
-        information,   
-        chef_id,     
-        created_at        
+        information,
+        chef_id,
+        created_at
       ) VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id
     `;
@@ -63,34 +63,27 @@ module.exports = {
       }
     );
   },
-  update(data, callback) {
-    // image=($1),
+  update(data) {
     const query = `
-    UPDATE recipes SET
-        
-        title=($1),
-        ingredients=($2),
-        preparation=($3),
-        information=($4),
-        chef_id=($5)
-    WHERE id = $6
-      `;
+        UPDATE recipes SET
+            chef_id=($1),
+            title=($2),
+            ingredients=($3),
+            preparation=($4),
+            information=($5)
+        WHERE id = $6
+        `;
 
     const values = [
-      // data.image,
+      data.chef,
       data.title,
       data.ingredients,
       data.preparation,
       data.information,
-      data.chef,
       data.id,
     ];
 
-    db.query(query, values, function (err, results) {
-      if (err) throw `Database Error! ${err}`;
-
-      callback();
-    });
+    return db.query(query, values);
   },
   delete(id, callback) {
     db.query(
@@ -121,7 +114,11 @@ module.exports = {
   files(id) {
     return db.query(
       `
-      SELECT * FROM files_test WHERE recipe_id = $1
+      SELECT recipe_files.*,
+    files.name AS name, files.path AS path, files.id AS file_id
+    FROM recipe_files
+    LEFT JOIN files ON (recipe_files.file_id = files.id)
+    WHERE recipe_files.recipe_id = $1
     `,
       [id]
     );

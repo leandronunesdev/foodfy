@@ -36,8 +36,8 @@ module.exports = {
     const keys = Object.keys(req.body);
 
     for (key of keys) {
-      if (req.body[key] == '') {
-        return res.send('Por favor, preencha ao menos um ingrediente');
+      if (req.body[key] == '' && key != 'id') {
+        return res.send('Por favor, preencha todos os campos');
       }
     }
     Chef.create(req.body, function (chef) {
