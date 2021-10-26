@@ -2,16 +2,11 @@ const db = require('../../config/db');
 const { date } = require('../../lib/utils');
 
 module.exports = {
-  all(callback) {
-    db.query(
+  all() {
+    return db.query(
       `SELECT recipes.*,  chefs.name AS chef_name
-    FROM recipes 
-    LEFT JOIN chefs ON (recipes.chef_id = chefs.id)`,
-      function (err, results) {
-        if (err) throw `Database Error! ${err}`;
-
-        callback(results.rows);
-      }
+      FROM recipes 
+      LEFT JOIN chefs ON (recipes.chef_id = chefs.id)`
     );
   },
   create(data) {
@@ -85,16 +80,8 @@ module.exports = {
 
     return db.query(query, values);
   },
-  delete(id, callback) {
-    db.query(
-      `DELETE FROM recipes WHERE id = $1`,
-      [id],
-      function (err, results) {
-        if (err) throw `Database Error! ${err}`;
-
-        return callback();
-      }
-    );
+  delete(id) {
+    return db.query(`DELETE FROM recipes WHERE id = $1`, [id]);
   },
   paginate(params) {
     const { limit, offset, callback } = params;
@@ -115,10 +102,10 @@ module.exports = {
     return db.query(
       `
       SELECT recipe_files.*,
-    files.name AS name, files.path AS path, files.id AS file_id
-    FROM recipe_files
-    LEFT JOIN files ON (recipe_files.file_id = files.id)
-    WHERE recipe_files.recipe_id = $1
+      files.name AS name, files.path AS path, files.id AS file_id
+      FROM recipe_files
+      LEFT JOIN files ON (recipe_files.file_id = files.id)
+      WHERE recipe_files.recipe_id = $1
     `,
       [id]
     );

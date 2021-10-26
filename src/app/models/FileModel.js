@@ -20,8 +20,6 @@ module.exports = {
       const results = await db.query('SELECT * FROM files WHERE id = $1', [id]);
       const file = results.rows[0];
 
-      console.log(file.path);
-
       fs.unlinkSync(file.path);
 
       return db.query('DELETE FROM files WHERE id = $1', [id]);

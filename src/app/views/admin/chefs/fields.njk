@@ -1,4 +1,33 @@
-<h3>Nome</h3>
-<input type="text" name="name" value="{{chef.name}}" placeholder="Nome">
-<h3>Avatar</h3>
-<input type="url" name="avatar_url" value="{{chef.avatar_url}}" placeholder="https://">
+<div class="chef-name">
+    <h3>Nome</h3>
+    <input type="text" name="name" value="{{chef.name}}" placeholder="Nome">
+</div>
+
+
+<div class="recipe-create-photos item">
+    <div>Fotos</div>
+    <div> 
+        <div id="photos-upload">
+            <input 
+                id="photos-input"
+                type="file" 
+                name="photos" 
+                
+                accept="image/*"
+                onchange="PhotosUpload.handleFileInput(event)"
+            >
+            <p>Selecione um avatar</p>        
+        </div>    
+        <div id="photos-preview">
+            {% if files %}
+                {% for image in files %}
+                    <div class="photo" id="{{image.id}}">
+                        <img src="{{image.src}}" alt="{{image.name}}">
+                        <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">close</i>
+                    </div>
+                {% endfor %}
+                <input type="hidden" name="removed_files">
+            {% endif %}
+        </div>           
+    </div>
+</div>

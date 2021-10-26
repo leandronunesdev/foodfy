@@ -8,7 +8,7 @@
 
 <div class="container chef-form">
     
-    <form method="POST" action="/admin/chefs?_method=PUT">
+    <form method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
     <div class="cards edit-header">
         <h1>Editando chef</h1>
         <div>
@@ -21,8 +21,13 @@
         
     </form>
     <form action="/admin/chefs?_method=DELETE" method="POST">
-            <input type="hidden" name="id" value={{chef.id}}>
-            <button type="submit" class="button delete-button">Deletar</button>
+        {% if files %}
+            {% for image in files %}
+                <input type="hidden" name="file_id" value={{image.id}}>
+            {% endfor %}
+        {% endif %}
+        <input type="hidden" name="id" value={{chef.id}}>
+        <button type="submit" class="button delete-button">Deletar</button>
     </form>
 </div>
     

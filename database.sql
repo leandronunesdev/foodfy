@@ -9,3 +9,9 @@ CREATE TABLE recipe_files (
     recipe_id INTEGER REFERENCES recipes(id),
     file_id INTEGER REFERENCES files(id)
 )
+
+ALTER TABLE chefs
+DROP COLUMN avatar_url
+
+ALTER TABLE chefs
+ADD COLUMN file_id INTEGER REFERENCES files(id)

@@ -4,48 +4,116 @@ const File = require('../models/FileModel');
 const RecipeFile = require('../models/RecipeFileModel');
 
 module.exports = {
-  home(req, res) {
-    Recipe.all(function (recipes) {
-      return res.render('site/pages/index', { recipes });
-    });
+  async home(req, res) {
+    try {
+      let results = await Recipe.all();
+      const recipes = results.rows;
+
+      async function getImage(recipeId) {
+        let results = await Recipe.files(recipeId);
+        const files = results.rows.map(
+          (file) =>
+            `${req.protocol}://${req.headers.host}${file.path.replace(
+              'public',
+              ''
+            )}`
+        );
+
+        return files[0];
+      }
+
+      const recipesPromise = recipes.map(async (recipe) => {
+        recipe.image = await getImage(recipe.id);
+        return recipe;
+      });
+
+      const allRecipes = await Promise.all(recipesPromise);
+
+      return res.render('site/pages/index', { recipes: allRecipes });
+    } catch (err) {
+      console.error(err);
+    }
   },
   list(req, res) {
-    let { page, limit } = req.query;
+    try {
+      let { page, limit } = req.query;
 
-    page = page || 1;
-    limit = limit || 2;
-    let offset = limit * (page - 1);
+      page = page || 1;
+      limit = limit || 2;
+      let offset = limit * (page - 1);
 
-    const params = {
-      page,
-      limit,
-      offset,
-      callback(recipes) {
-        let total = 0;
-        if (recipes[0]) {
-          total = Math.ceil(recipes[0].total / limit);
-        }
-        const pagination = {
-          total,
-          page,
-        };
-        return res.render('site/pages/recipes', { recipes, pagination });
-      },
-    };
-    Recipe.paginate(params);
+      const params = {
+        page,
+        limit,
+        offset,
+        callback(recipes) {
+          let total = 0;
+          if (recipes[0]) {
+            total = Math.ceil(recipes[0].total / limit);
+          }
+          const pagination = {
+            total,
+            page,
+          };
+          return res.render('site/pages/recipes', { recipes, pagination });
+        },
+      };
+      Recipe.paginate(params);
+    } catch (err) {
+      console.error(err);
+    }
   },
   async detail(req, res) {
-    let results = await Recipe.find(req.params.id);
-    const recipe = results.rows[0];
+    try {
+      let results = await Recipe.find(req.params.id);
+      const recipe = results.rows[0];
 
-    if (!recipe) return res.send('Receita não encontrada!');
+      if (!recipe) return res.send('Receita não encontrada!');
 
-    return res.render('site/pages/recipe', { recipe });
+      results = await Recipe.files(recipe.id);
+
+      const files = results.rows.map((file) => ({
+        ...file,
+        src: `${req.protocol}://${req.headers.host}${file.path.replace(
+          'public',
+          ''
+        )}`,
+      }));
+
+      return res.render('site/pages/recipe', { recipe, files });
+    } catch (err) {
+      console.error(err);
+    }
   },
-  index(req, res) {
-    Recipe.all(function (recipes) {
-      return res.render('admin/recipes/index', { recipes });
-    });
+  async index(req, res) {
+    try {
+      let results = await Recipe.all();
+      const recipes = results.rows;
+
+      async function getImage(recipeId) {
+        let results = await Recipe.files(recipeId);
+        const files = results.rows.map(
+          (file) =>
+            `${req.protocol}://${req.headers.host}${file.path.replace(
+              'public',
+              ''
+            )}`
+        );
+
+        return files[0];
+      }
+
+      const recipesPromise = recipes.map(async (recipe) => {
+        recipe.image = await getImage(recipe.id);
+        return recipe;
+      });
+
+      const allRecipes = await Promise.all(recipesPromise);
+
+      return res.render('admin/recipes/index', { recipes: allRecipes });
+    } catch (err) {
+      console.error(err);
+    }
   },
   search(req, res) {
     let { filter } = req.query;
@@ -167,12 +235,12 @@ module.exports = {
         await Promise.all(newFilesPromise);
       }
 
+      console.log(req.body.removed_files);
+
       if (req.body.removed_files) {
         const removedFiles = req.body.removed_files.split(',');
         const lastIndex = removedFiles.length - 1;
         removedFiles.splice(lastIndex, 1);
-
-        console.log('teste', req.body.removed_files);
 
         const removedFilesPromise = removedFiles.map((id) => {
           RecipeFile.delete(id);
@@ -188,10 +256,21 @@ module.exports = {
       console.error(err);
     }
   },
+  async delete(req, res) {
+    try {
+      let results = await Recipe.files(req.body.id);
+      const files = results.rows;
+      const deletedFilesPromise = files.map((file) => {
+        RecipeFile.delete(file.file_id);
+        File.delete(file.file_id);
+      });
 
-  delete(req, res) {
-    Recipe.delete(req.body.id, function () {
+      await Promise.all(deletedFilesPromise);
+      await Recipe.delete(req.body.id);
+
       return res.redirect('/admin/recipes');
-    });
+    } catch (err) {
+      console.error(err);
+    }
   },
 };
