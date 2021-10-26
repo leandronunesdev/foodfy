@@ -8,8 +8,10 @@
         <a href="/chefs">Chefs</a>
         <a href="/admin/recipes">Admin</a>
     </div>
+    {% if recipes %}
     <form class="search" action="/search" method="GET">
         <input type="text" name="filter" placeholder="Buscar uma receita" value={{filter}}>
         <button type="submit" class="button">Buscar</button>
+    {% endif %}
     </form>
 </header>

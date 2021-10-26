@@ -6,7 +6,9 @@ module.exports = {
     return db.query(
       `SELECT recipes.*,  chefs.name AS chef_name
       FROM recipes 
-      LEFT JOIN chefs ON (recipes.chef_id = chefs.id)`
+      LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+      ORDER BY created_at DESC      
+      `
     );
   },
   create(data) {
@@ -16,9 +18,8 @@ module.exports = {
         ingredients,
         preparation,
         information,
-        chef_id,
-        created_at
-      ) VALUES ($1, $2, $3, $4, $5, $6)
+        chef_id        
+      ) VALUES ($1, $2, $3, $4, $5)
       RETURNING id
     `;
 
@@ -28,7 +29,6 @@ module.exports = {
       data.preparation,
       data.information,
       data.chef,
-      date(Date.now()).iso,
     ];
 
     return db.query(query, values);
@@ -49,7 +49,8 @@ module.exports = {
       SELECT recipes.*,  chefs.name AS chef_name
       FROM recipes 
       LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
-      WHERE recipes.title ILIKE '%${filter}%'      
+      WHERE recipes.title ILIKE '%${filter}%'    
+      ORDER BY updated_at DESC  
       `,
       function (err, results) {
         if (err) throw `Database error! ${err}`;
@@ -89,7 +90,7 @@ module.exports = {
     let query = `
     SELECT recipes.*, (SELECT count(*) FROM recipes) AS total   
     FROM recipes
-    GROUP BY recipes.id LIMIT $1 OFFSET $2
+    GROUP BY recipes.id LIMIT $1 OFFSET $2    
     `;
 
     db.query(query, [limit, offset], function (err, results) {
