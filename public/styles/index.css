@@ -67,6 +67,10 @@ a {
   background-color: #dc4747;
 }
 
+.cancel-button {
+  background-color: #8a8a8a;
+}
+
 /* PHOTOS UPLOAD */
 
 form .item #photos-upload {
@@ -151,7 +155,3 @@ form .item #photos-preview img {
 #photos-preview .photo:hover i {
   opacity: 1;
 }
-
-/* product view */
-
-/* product single gallery */

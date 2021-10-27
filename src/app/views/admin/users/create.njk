@@ -1,7 +1,7 @@
 {% extends "layout-admin.njk" %}
 
 {% block head %}
-    <title>Foodfy - Cadastrar novo chef</title>
+    <title>Foodfy - Lista de usuários</title>
 {% endblock %}
 
 {% block content %}
@@ -10,16 +10,18 @@
 
   <form method="POST" action="/admin/chefs" enctype="multipart/form-data">
     <div class="edit-header">
-        <h1>Criando chef</h1>
+        <h1>Criar Usuário</h1>
         <div>            
-            <button type="submit" class="button">Salvar chef</button>
+            <button type="submit" class="button">Salvar</button>
+            <a href="/admin/users" class="button cancel-button">Cancelar</a>
         </div>
     </div>
 
-    {% include 'admin/chefs/fields.njk' %}
+    {% include 'admin/users/fields.njk' %}
 
   </form>
 
 </div>
+
     
 {% endblock %}

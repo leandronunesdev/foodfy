@@ -1,0 +1,23 @@
+.user-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.user-form input {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.user-form .checkbox {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.user-form .checkbox input {
+  width: min-content;
+  margin: 10px;
+}
