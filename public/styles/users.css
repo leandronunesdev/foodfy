@@ -21,3 +21,72 @@
   width: min-content;
   margin: 10px;
 }
+
+/* USERS LIST  */
+
+.users-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 50px;
+  margin-top: 60px;
+}
+
+.users-list h1 {
+  font-size: 18px;
+  font-weight: normal;
+}
+.users-list p {
+  font-size: 14px;
+  color: #777777;
+}
+
+.users-list a {
+  font-size: 14px;
+  color: #6558c3;
+  margin-right: 16px;
+}
+
+.users-list a:last-child {
+  color: #f55a5a;
+}
+
+/* LOGIN FORM */
+
+.login-form {
+  max-width: 500px;
+}
+
+.login-form .header h3 {
+  font-size: 24px;
+  width: 35%;
+  margin: 0px auto 35px;
+}
+
+.login-form h3 {
+  font-size: 16px;
+  line-height: 19px;
+  margin-bottom: 10px;
+}
+
+.login-form input {
+  font-size: 16px;
+  line-height: 19px;
+  width: 100%;
+  height: fit-content;
+  border: #dddddd 1px solid;
+  margin-bottom: 30px;
+  padding: 15px 0 15px 20px;
+  border-radius: 4px;
+}
+
+.login-form a {
+  font-size: 16px;
+  color: #969696;
+  font-weight: bold;
+}
+
+.login-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

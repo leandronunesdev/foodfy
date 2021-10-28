@@ -4,11 +4,16 @@ const multer = require('../app/middlewares/multer');
 
 const RecipeController = require('../app/controllers/RecipeController');
 
-routes.get('/', RecipeController.index);
+const {
+  isLoggedRedirectToUsers,
+  onlyUsers,
+} = require('../app/middlewares/session');
 
-routes.get('/create', RecipeController.create);
-routes.get('/:id', RecipeController.show);
-routes.get('/:id/edit', RecipeController.edit);
+routes.get('/', onlyUsers, RecipeController.index);
+
+routes.get('/create', onlyUsers, RecipeController.create);
+routes.get('/:id', onlyUsers, RecipeController.show);
+routes.get('/:id/edit', onlyUsers, RecipeController.edit);
 
 routes.post('/', multer.array('photos', 5), RecipeController.post);
 routes.put('/', multer.array('photos', 5), RecipeController.put);
