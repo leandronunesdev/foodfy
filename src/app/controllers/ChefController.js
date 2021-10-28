@@ -52,7 +52,11 @@ module.exports = {
 
       const allChefs = await Promise.all(chefsPromise);
 
-      return res.render('admin/chefs/index', { chefs: allChefs });
+      console.log('check', req.session.isAdmin);
+
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/chefs/index', { chefs: allChefs, isAdmin });
     } catch (err) {
       console.error(err);
     }
@@ -161,8 +165,6 @@ module.exports = {
         const results = await File.create(req.files[0]);
         file_id = results.rows[0].id;
       }
-
-      console.log('remove', req.body.removed_files);
 
       if (req.body.removed_files) {
         const removedFiles = req.body.removed_files.split(',');

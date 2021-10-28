@@ -40,14 +40,22 @@
   color: #777777;
 }
 
-.users-list a {
+.user-options {
+  display: flex;
+  align-items: center;
+}
+
+.edit-user,
+.delete-user {
   font-size: 14px;
   color: #6558c3;
   margin-right: 16px;
 }
 
-.users-list a:last-child {
+.delete-user {
   color: #f55a5a;
+  background: white;
+  cursor: pointer;
 }
 
 /* LOGIN FORM */

@@ -8,7 +8,9 @@
 
 <div class="container edit-header">
     <h1>Gerenciar chefs</h1>
-    <a href="/admin/chefs/create" class="button">Novo chef</a>
+    {% if isAdmin %}
+        <a href="/admin/chefs/create" class="button">Novo chef</a>  
+    {% endif %}
 </div>
 
 <div class="container chefs-list">   
