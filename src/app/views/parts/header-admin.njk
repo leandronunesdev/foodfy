@@ -6,7 +6,9 @@
         <div class="menu">            
             <a href="/admin/recipes">RECEITAS</a>
             <a href="/admin/chefs">CHEFS</a>
+            {% if isAdmin%}
             <a href="/admin/users">USUÁRIOS</a>
+            {% endif %}
             <a href="/admin/recipes">Admin</a>
             <div>
                 <form action="/admin/users/logout" method="post">

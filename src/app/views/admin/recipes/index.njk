@@ -8,7 +8,10 @@
 
 <div class="container edit-header">
         <h1>Gerenciar receitas</h1>
+
+        {% if isAdmin%}
         <a href="/admin/recipes/create" class="button">Nova receita</a>
+        {%endif%}
     </div>
 
 {% include 'parts/admin-recipes-list.njk'%}

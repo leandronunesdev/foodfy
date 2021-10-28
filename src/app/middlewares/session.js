@@ -9,6 +9,7 @@ function isLoggedRedirectToUsers(req, res, next) {
 }
 
 function onlyAdmins(req, res, next) {
+  console.log(req.session.isAdmin);
   if (!req.session.isAdmin) return res.redirect('/admin/recipes');
   next();
 }

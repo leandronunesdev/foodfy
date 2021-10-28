@@ -1,0 +1,48 @@
+{% extends "layout-admin.njk" %}
+
+{% block head %}
+    <title>Foodfy - Editar Usuário</title>
+{% endblock %}
+
+{% block content %}
+
+<div class="container chef-form">
+
+  <form method="POST" action="/admin/users/profile?_method=PUT">
+    <div class="edit-header">
+        <h1>Editar usuário</h1>
+        <div>            
+            <button type="submit" class="button">Salvar</button>            
+        </div>
+    </div>
+    
+    <input 
+                    type="hidden" 
+                    name="id" 
+                    value={{user.id}}
+                > 
+    <div class="user-form">
+
+    <div class="">
+        <h3>Nome</h3>
+        <input type="text" name="name" value="{{user.name}}" placeholder="Digite o nome completo">
+    </div>
+
+    <div class="">
+        <h3>Email</h3>
+        <input type="email" name="email" value="{{user.email}}" placeholder="Digite o email">
+    </div>    
+
+    <div>
+            <h3>Senha</h3>
+            <input type="password" name="password" placeholder="Digite sua senha">
+        </div>
+
+</div>
+
+  </form>
+
+</div>
+
+    
+{% endblock %}

@@ -29,28 +29,6 @@ async function show(req, res, next) {
   next();
 }
 
-async function post(req, res, next) {
-  //check if has all fields
-  const fillAllFields = checkAllFields(req.body);
-  if (fillAllFields) {
-    return res.render('admin/users/create', fillAllFields);
-  }
-  //check if user exists [email, cpf_cnpj]
-  let { email } = req.body;
-
-  const user = await User.findOne({
-    where: { email },
-  });
-  if (user)
-    return res.render('admin/users/create', {
-      user: req.body,
-      error: 'Usuário já cadastrado',
-    });
-  //check if password match
-
-  next();
-}
-
 async function update(req, res, next) {
   //check if has all fields
   const fillAllFields = checkAllFields(req.body);
@@ -58,9 +36,23 @@ async function update(req, res, next) {
     return res.render('admin/users/profile', fillAllFields);
   }
 
-  const { id } = req.body;
+  const { id, password } = req.body;
+  if (!password)
+    return res.render('admin/users/profile', {
+      user: req.body,
+      error: 'Coloque sua senha para atualizar seu cadastro',
+    });
 
   const user = await User.findOne({ where: { id } });
+
+  // const passed = await compare(password, user.password);
+  const passed = password === user.password;
+
+  if (!passed)
+    return res.render('admin/users/profile', {
+      user: req.body,
+      error: 'Senha incorreta',
+    });
 
   req.user = user;
 
@@ -68,7 +60,6 @@ async function update(req, res, next) {
 }
 
 module.exports = {
-  post,
   show,
   update,
 };

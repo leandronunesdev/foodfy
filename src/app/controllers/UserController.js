@@ -6,13 +6,18 @@ module.exports = {
     const results = await User.list();
     const users = results.rows;
 
-    return res.render('admin/users/list', { users });
+    const userId = req.session.userId;
+    const isAdmin = req.session.isAdmin;
+
+    console.log(isAdmin);
+
+    return res.render('admin/users/list', { users, userId, isAdmin });
   },
   create(req, res) {
     return res.render('admin/users/create');
   },
-  post(req, res) {
-    User.create(req.body);
+  async post(req, res) {
+    await User.create(req.body);
 
     return res.redirect('/admin/users');
   },
@@ -25,15 +30,7 @@ module.exports = {
     return res.render('admin/users/edit.njk', { user });
   },
   async put(req, res) {
-    const keys = Object.keys(req.body);
-
-    for (key of keys) {
-      if (req.body[key] == '' && key != 'removed_files') {
-        return res.send('Please, fill all fields');
-      }
-    }
-
-    await User.update(req.body, req.session.userId);
+    await User.update(req.body);
     return res.redirect('/admin/users');
   },
   async delete(req, res) {

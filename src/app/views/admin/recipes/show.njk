@@ -8,7 +8,9 @@
 
 <div class="container edit-header">
     <h1>Receita: {{recipe.title}}</h1>
+    {% if isAdmin%}
     <a href="/admin/recipes/{{recipe.id}}/edit" class="button">Editar receita</a>
+    {%endif%}
 </div>  
 
 {% include 'parts/recipe-description.njk' %}

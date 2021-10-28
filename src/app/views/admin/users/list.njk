@@ -8,9 +8,8 @@
 
 <div class="container edit-header">
     
-    <h1>Usuários</h1>    
-    
-    <a href="/admin/users/create" class="button">Novo</a>    
+    <h1>Usuários</h1>   
+    <a href="/admin/users/create" class="button">Novo</a>   
 </div>
 
 <div class="class container users-list">
@@ -19,7 +18,7 @@
             <div class="user-info">
                 <h1>{{user.name}}</h1>
                 <p>{{user.email}}</p>
-            </div>
+            </div>            
             <div class="user-options">
                 <a class="edit-user" href="/admin/users/{{user.id}}/edit">Editar</a>
                 <form id="form-delete" action="/admin/users?_method=DELETE" method="post">
@@ -28,9 +27,12 @@
                                 name="id" 
                                 value={{user.id}}
                             > 
+                    {% if userId !== user.id %}
                     <button class="delete-user" type="submit">Remover</button>
+                    {% endif %}
                 </form>                
             </div>
+            
         </div>
 
     {% endfor %}

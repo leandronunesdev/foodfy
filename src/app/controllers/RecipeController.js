@@ -110,7 +110,14 @@ module.exports = {
 
       const allRecipes = await Promise.all(recipesPromise);
 
-      return res.render('admin/recipes/index', { recipes: allRecipes });
+      const userId = req.session.userId;
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/recipes/index', {
+        recipes: allRecipes,
+        userId,
+        isAdmin,
+      });
     } catch (err) {
       console.error(err);
     }
@@ -150,7 +157,15 @@ module.exports = {
         )}`,
       }));
 
-      return res.render('admin/recipes/show', { recipe, files });
+      const userId = req.session.userId;
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/recipes/show', {
+        recipe,
+        files,
+        userId,
+        isAdmin,
+      });
     } catch (err) {
       console.error(err);
     }
