@@ -9,6 +9,7 @@
 <div class="container chef-form">
 
   <form method="POST" action="/admin/users?_method=PUT">
+
     <div class="edit-header">
         <h1>Editar usuário</h1>
         <div>            
@@ -16,12 +17,13 @@
             <a href="/admin/users" class="button cancel-button">Cancelar</a>
         </div>
     </div>
-    
+        
     <input 
-                    type="hidden" 
-                    name="id" 
-                    value={{user.id}}
-                > 
+        type="hidden" 
+        name="id" 
+        value={{user.id}}
+    > 
+
     {% include 'admin/users/fields.njk' %}
 
   </form>

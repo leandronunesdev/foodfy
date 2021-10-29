@@ -31,6 +31,7 @@ async function show(req, res, next) {
 
 async function update(req, res, next) {
   //check if has all fields
+
   const fillAllFields = checkAllFields(req.body);
   if (fillAllFields) {
     return res.render('admin/users/profile', fillAllFields);

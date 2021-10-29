@@ -9,6 +9,7 @@
 <div class="container form recipe-form">
     
     <form method="POST" action="/admin/recipes?_method=PUT" enctype="multipart/form-data">
+
         <div class="cards edit-header">
             <h1>Editando receita</h1>
             <div>
@@ -20,6 +21,7 @@
             {% include 'admin/recipes/fields.njk' %}
         
     </form>
+    
     <form action="/admin/recipes?_method=DELETE" method="POST">
             <input type="hidden" name="id" value={{recipe.id}}>
             <button type="submit" class="button delete-button">Deletar</button>

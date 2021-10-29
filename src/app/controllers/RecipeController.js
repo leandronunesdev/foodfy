@@ -29,7 +29,7 @@ module.exports = {
 
       const allRecipes = await Promise.all(recipesPromise);
 
-      return res.render('site/pages/index', { recipes: allRecipes });
+      return res.render('site/index', { recipes: allRecipes });
     } catch (err) {
       console.error(err);
     }
@@ -55,7 +55,7 @@ module.exports = {
             total,
             page,
           };
-          return res.render('site/pages/recipes', { recipes, pagination });
+          return res.render('site/recipes', { recipes, pagination });
         },
       };
       Recipe.paginate(params);
@@ -80,7 +80,7 @@ module.exports = {
         )}`,
       }));
 
-      return res.render('site/pages/recipe', { recipe, files });
+      return res.render('site/recipe', { recipe, files });
     } catch (err) {
       console.error(err);
     }
@@ -126,7 +126,7 @@ module.exports = {
     let { filter } = req.query;
 
     Recipe.findBy(filter, function (recipes) {
-      return res.render('site/pages/search', { recipes, filter });
+      return res.render('site/search', { recipes, filter });
     });
   },
   create(req, res) {
@@ -134,7 +134,9 @@ module.exports = {
       .then(function (results) {
         const chefs = results.rows;
 
-        return res.render('admin/recipes/create', { chefs });
+        const isAdmin = req.session.isAdmin;
+
+        return res.render('admin/recipes/create', { chefs, isAdmin });
       })
       .catch(function (err) {
         throw new Error(err);
@@ -182,6 +184,8 @@ module.exports = {
     if (req.files.length == 0)
       return res.send('Please, send at least one image');
 
+    req.body.user_id = req.session.userId;
+
     let results = await Recipe.create(req.body);
     const recipeId = results.rows[0].id;
 
@@ -221,7 +225,14 @@ module.exports = {
         )}`,
       }));
 
-      return res.render('admin/recipes/edit', { recipe, chefs, files });
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/recipes/edit', {
+        recipe,
+        chefs,
+        files,
+        isAdmin,
+      });
     } catch (err) {
       console.error(err);
     }

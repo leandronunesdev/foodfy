@@ -7,12 +7,9 @@
 {% block content %}
 
 <div class="container edit-header">
-        <h1>Gerenciar receitas</h1>
-
-        {% if isAdmin%}
-        <a href="/admin/recipes/create" class="button">Nova receita</a>
-        {%endif%}
-    </div>
+    <h1>Gerenciar receitas</h1>       
+    <a href="/admin/recipes/create" class="button">Nova receita</a>                
+</div>
 
 {% include 'parts/admin-recipes-list.njk'%}
 |    

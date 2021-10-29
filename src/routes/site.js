@@ -10,7 +10,7 @@ routes.get('/recipes/:id', RecipeController.detail);
 routes.get('/search', RecipeController.search);
 routes.get('/chefs', ChefController.list);
 routes.get('/about', function (req, res) {
-  return res.render('site/pages/about');
+  return res.render('site/about');
 });
 
 module.exports = routes;

@@ -18,8 +18,9 @@ module.exports = {
         ingredients,
         preparation,
         information,
-        chef_id        
-      ) VALUES ($1, $2, $3, $4, $5)
+        chef_id,
+        user_id        
+      ) VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING id
     `;
 
@@ -29,6 +30,7 @@ module.exports = {
       data.preparation,
       data.information,
       data.chef,
+      data.user_id,
     ];
 
     return db.query(query, values);
@@ -88,9 +90,10 @@ module.exports = {
     const { limit, offset, callback } = params;
 
     let query = `
-    SELECT recipes.*, (SELECT count(*) FROM recipes) AS total   
+    SELECT recipes.*, (SELECT count(*) FROM recipes) AS total, chefs.name AS chef_name   
     FROM recipes
-    GROUP BY recipes.id LIMIT $1 OFFSET $2    
+    LEFT JOIN chefs ON (recipes.chef_id = chefs.id)
+    GROUP BY recipes.id, chefs.id LIMIT $1 OFFSET $2   
     `;
 
     db.query(query, [limit, offset], function (err, results) {

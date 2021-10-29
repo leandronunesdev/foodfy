@@ -25,7 +25,7 @@ module.exports = {
 
       const allChefs = await Promise.all(chefsPromise);
 
-      return res.render('site/pages/chefs', { chefs: allChefs });
+      return res.render('site/chefs', { chefs: allChefs });
     } catch (err) {
       console.error(err);
     }
@@ -52,11 +52,17 @@ module.exports = {
 
       const allChefs = await Promise.all(chefsPromise);
 
-      console.log('check', req.session.isAdmin);
-
       const isAdmin = req.session.isAdmin;
 
       return res.render('admin/chefs/index', { chefs: allChefs, isAdmin });
+    } catch (err) {
+      console.error(err);
+    }
+  },
+  create(req, res) {
+    try {
+      const isAdmin = req.session.isAdmin;
+      return res.render('admin/chefs/create', { isAdmin });
     } catch (err) {
       console.error(err);
     }
@@ -95,7 +101,13 @@ module.exports = {
 
       const allChefRecipes = await Promise.all(recipesPromise);
 
-      return res.render('admin/chefs/show', { chef, recipes: allChefRecipes });
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/chefs/show', {
+        chef,
+        recipes: allChefRecipes,
+        isAdmin,
+      });
     } catch (err) {
       console.error(err);
     }

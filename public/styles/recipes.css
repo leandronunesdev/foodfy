@@ -36,7 +36,7 @@
 
 .recipe img {
   border-radius: 15px;
-  margin: 0 auto 50px;
+  margin: 0 auto 8px;
   width: 100%;
   height: 280px;
   object-fit: cover;
@@ -111,12 +111,12 @@ p {
 
 .highlight .gallery-preview {
   display: flex;
-  /* margin-left: 70vmax; */
+  justify-content: flex-end;
 }
 
 .highlight .gallery-preview img {
-  width: 5vw;
-  height: 10vh;
+  width: 75px;
+  height: 75px;
   border-radius: 10px;
   display: flex;
   opacity: 60%;
@@ -209,4 +209,34 @@ p {
   font-size: 14px;
   font-weight: bold;
   color: #6558c3;
+}
+
+/* Pagination */
+
+.table-container {
+  display: grid;
+  grid-template: 64px 1fr 64px / 1fr;
+}
+
+.table-container .header {
+  margin: 0;
+  align-self: start;
+}
+
+.table-container .pagination {
+  margin: 0;
+  align-self: end;
+  justify-self: center;
+}
+
+.pagination a,
+.pagination span {
+  color: var(--primary-color);
+  text-decoration: none;
+  margin-right: 16px;
+}
+
+.pagination a:hover {
+  filter: brightness(0.3);
+  border-bottom: 1px solid var(--primary-color);
 }

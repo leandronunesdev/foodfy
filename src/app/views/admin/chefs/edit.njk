@@ -9,17 +9,16 @@
 <div class="container chef-form">
     
     <form method="POST" action="/admin/chefs?_method=PUT" enctype="multipart/form-data">
-    <div class="cards edit-header">
-        <h1>Editando chef</h1>
-        <div>
-            <input type="hidden" name="id" value={{chef.id}}>
-            <button type="submit" class="button">Salvar chef</button>
-        </div>
-    </div>
-    
-        {% include 'admin/chefs/fields.njk' %}
-        
+        <div class="cards edit-header">
+            <h1>Editando chef</h1>
+            <div>
+                <input type="hidden" name="id" value={{chef.id}}>
+                <button type="submit" class="button">Salvar chef</button>
+            </div>
+        </div>    
+        {% include 'admin/chefs/fields.njk' %}        
     </form>
+
     <form action="/admin/chefs?_method=DELETE" method="POST">
         {% if files %}
             {% for image in files %}
@@ -29,6 +28,7 @@
         <input type="hidden" name="id" value={{chef.id}}>
         <button type="submit" class="button delete-button">Deletar</button>
     </form>
+    
 </div>
     
 {% endblock %}

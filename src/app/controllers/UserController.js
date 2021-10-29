@@ -9,12 +9,12 @@ module.exports = {
     const userId = req.session.userId;
     const isAdmin = req.session.isAdmin;
 
-    console.log(isAdmin);
-
     return res.render('admin/users/list', { users, userId, isAdmin });
   },
   create(req, res) {
-    return res.render('admin/users/create');
+    const isAdmin = req.session.isAdmin;
+
+    return res.render('admin/users/create', { isAdmin });
   },
   async post(req, res) {
     await User.create(req.body);
@@ -27,11 +27,33 @@ module.exports = {
 
     if (!user) return res.send('User not found!');
 
-    return res.render('admin/users/edit.njk', { user });
+    const isAdmin = req.session.isAdmin;
+
+    return res.render('admin/users/edit.njk', { user, isAdmin });
   },
   async put(req, res) {
-    await User.update(req.body);
-    return res.redirect('/admin/users');
+    try {
+      const { user } = req;
+      let { name, email } = req.body;
+
+      await User.update(user.id, {
+        name,
+        email,
+      });
+
+      const isAdmin = req.session.isAdmin;
+
+      return res.render('admin/users/edit', {
+        user: req.body,
+        success: 'Conta atualizada com sucesso!',
+        isAdmin,
+      });
+    } catch (err) {
+      console.error(err);
+      return res.render('admin/users/edit', {
+        error: 'Algum erro aconteceu!',
+      });
+    }
   },
   async delete(req, res) {
     if (req.session.userId == req.body.id) {

@@ -3,16 +3,17 @@
         <div class="logo">
             <a href="/"><img src="/assets/logo-admin.png" alt="Logo"></a>            
         </div>
-        <div class="menu">            
-            <a href="/admin/recipes">RECEITAS</a>
-            <a href="/admin/chefs">CHEFS</a>
-            {% if isAdmin%}
-            <a href="/admin/users">USUÁRIOS</a>
-            {% endif %}
-            <a href="/admin/recipes">Admin</a>
+        <div class="menu menu-admin">  
+            <div>
+                <a href="/admin/recipes">RECEITAS</a>
+                <a href="/admin/chefs">CHEFS</a>
+                {% if isAdmin%}
+                <a href="/admin/users">USUÁRIOS</a>
+                {% endif %}
+            </div>       
             <div>
                 <form action="/admin/users/logout" method="post">
-                                <button>Sair</button>
+                    <button>SAIR</button>
                 </form>
             </div>
         </div>

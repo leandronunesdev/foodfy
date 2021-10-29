@@ -1,16 +1,18 @@
 <div class="container recipes-admin-list">   
 
     {% for recipe in recipes %}
-        <div class="recipe-admin-card" >
-            <div class="">
-                <img src="{{recipe.image}}" alt={{recipe.title}}>
+        {% if userId == recipe.user_id or isAdmin%}
+            <div class="recipe-admin-card" >
+                <div class="">
+                    <img src="{{recipe.image}}" alt={{recipe.title}}>
+                </div>
+                <div class="recipe-admin-text">
+                    <h1>{{recipe.title}}</h1>
+                    <p>por {{recipe.chef_name}}</p>
+                    <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
+                </div>
             </div>
-            <div class="recipe-admin-text">
-                <h1>{{recipe.title}}</h1>
-                <p>por {{recipe.chef_name}}</p>
-                <a href="/admin/recipes/{{recipe.id}}">Visualizar</a>
-            </div>
-        </div>
-    {% endfor %}   
+        {%endif%}  
+    {% endfor %} 
 
 </div> 
